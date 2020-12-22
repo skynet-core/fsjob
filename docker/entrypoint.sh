@@ -29,7 +29,7 @@ debug() {
     fi
 }
 
-JOBS=$(find "$JOBS_FOLDER" -type f -executable -iname "*.job" | sort -z)
+JOBS=$(find "$JOBS_FOLDER" -type f -executable -iname "*.job" | sort)
 
 cat <<EOF
 PARAMS:
@@ -46,7 +46,7 @@ while true; do
     name=$(inotifywait -r -e $WAIT_EVENTS $WATCH_TARGET 2>/dev/null | cut -d ' ' -f3)
     debug "INFO: got event on $name"
 
-    for job in $(find "$JOBS_FOLDER" -type f -iname "*.job" | sort -z); do
+    for job in $(find "$JOBS_FOLDER" -type f -iname "*.job" | sort); do
         debug "INFO: process $job"
         param="$WATCH_TARGET/$name"
         if [ ! -d "$WATCH_TARGET" ]; then
