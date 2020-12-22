@@ -12,9 +12,7 @@ jobs:
     - name: Docker Meta
       id: shell-vars
       run: |
-        alpine_ver=$(./scripts/tags.sh "library/alpine" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+' | sort -rV | head -n 1)
         tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        echo "::set-output name=ALPINE_VERSION::$alpine_ver"
         echo "::set-output name=TAG::$tag"
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
@@ -33,5 +31,3 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/fsjob:${{ steps.shell-vars.outputs.TAG }}
-        build-args: |
-            ALPINE_VERSION=${{ steps.shell-vars.outputs.ALPINE_VERSION }}
