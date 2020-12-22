@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-RUN apt-get update && apt-get full-upgrade -y && apt-get install sudo -y
+RUN apt-get update && apt-get full-upgrade -y && apt-get install sudo inotify-tools -y
 
 COPY ./entrypoint.sh /entrypoint.sh
 
