@@ -62,7 +62,7 @@ while true; do
     for job in $(find "$JOBS_FOLDER" -type f -iname "*.job" | sort); do
         debug "INFO: process $job"
         if [ -x "$job" ]; then
-            debug "INFO: starting job $job with param $param"
+            debug "INFO: starting job $job with param $name"
             "$job" "$name"
         else
             debug "INFO: can't execute $job"
