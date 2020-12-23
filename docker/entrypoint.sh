@@ -64,12 +64,12 @@ while true; do
         if [ -x "$job" ]; then
             debug "INFO: starting job $job with param $name"
             "$job" "$name"
+            if ! "$job" "$name"; then
+                echo "ERROR: $job failed"
+                exit $?
+            fi
         else
             debug "INFO: can't execute $job"
-        fi
-        if [ $? -ne 0 ]; then
-            echo "ERROR: $job failed"
-            exit $?
         fi
     done
     # break loop
