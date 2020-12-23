@@ -56,7 +56,7 @@ EOF
 
 while true; do
     debug "INFO: wait for $WAIT_EVENTS on $WATCH_TARGET"
-    name=$(inotifywait -r -e $WAIT_EVENTS $WATCH_TARGET --format '%w/%f' 2>/dev/null)
+    name=$(inotifywait -r -e $WAIT_EVENTS $WATCH_TARGET --format '%w%f' 2>/dev/null)
     debug "INFO: got event on $name"
 
     for job in $(find "$JOBS_FOLDER" -type f -iname "*.job" | sort); do
