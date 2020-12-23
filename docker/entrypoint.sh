@@ -56,7 +56,7 @@ EOF
 
 debug "INFO: wait for $WAIT_EVENTS on $WATCH_TARGET"
 # break loop
-$monitor="-r"
+monitor="-r"
 if [ $FOREWER -ne 0 ]; then
     monitor="-r -m"
 fi
