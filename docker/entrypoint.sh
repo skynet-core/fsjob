@@ -28,8 +28,8 @@ if [ -z $JOBS_FOLDER ]; then
     JOBS_FOLDER="/etc/fsjob"
 fi
 
-if [ -z "$FOREWER" ]; then
-    FOREWER=0
+if [ -z "$FOREVER" ]; then
+    FOREVER=0
 fi
 
 if [ -z "$DEBUG" ]; then
