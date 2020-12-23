@@ -49,7 +49,7 @@ PARAMS:
     WATCH TARGET: $WATCH_TARGET
     WAIT EVENTS: $WAIT_EVENTS
     JOBS FOLDER: $JOBS_FOLDER
-    FOREWER: $FOREWER
+    FOREVER: $FOREVER
     DEBUG: $DEBUG
     INITIAL JOBS: $JOBS
 EOF
@@ -57,7 +57,7 @@ EOF
 debug "INFO: wait for $WAIT_EVENTS on $WATCH_TARGET"
 # break loop
 monitor="-r"
-if [ $FOREWER -ne 0 ]; then
+if [ $FOREVER -ne 0 ]; then
     monitor="-r -m"
 fi
 
