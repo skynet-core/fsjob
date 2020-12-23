@@ -1,6 +1,6 @@
 #!/bin/sh
 
-trap "exit 1" SIGINT SIGTERM
+trap "exit 1" INT TERM
 
 # WATCH_TARGET
 if [ -z $WATCH_TARGET ]; then
@@ -54,11 +54,15 @@ PARAMS:
     INITIAL JOBS: $JOBS
 EOF
 
-while true; do
-    debug "INFO: wait for $WAIT_EVENTS on $WATCH_TARGET"
-    name=$(inotifywait -r -e $WAIT_EVENTS $WATCH_TARGET --format '%w%f' 2>/dev/null)
-    debug "INFO: got event on $name"
+debug "INFO: wait for $WAIT_EVENTS on $WATCH_TARGET"
+# break loop
+$monitor="-r"
+if [ $FOREWER -ne 0 ]; then
+    monitor="-r -m"
+fi
 
+inotifywait $monitor -e $WAIT_EVENTS $WATCH_TARGET --format '%w%f' 2>/dev/null | while read name; do
+    debug "INFO: got event on $name"
     for job in $(find "$JOBS_FOLDER" -type f -iname "*.job" | sort); do
         debug "INFO: process $job"
         if [ -x "$job" ]; then
@@ -72,8 +76,4 @@ while true; do
             debug "INFO: can't execute $job"
         fi
     done
-    # break loop
-    if [ $FOREWER -eq 0 ]; then
-        break
-    fi
 done
