@@ -1,0 +1,17 @@
+FROM fedora:33
+
+RUN dnf upgrade && dnf install sudo inotify-tools
+
+COPY ./entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh && \
+    adduser -d /home/fsjob -m -c "FsJob User" -s /bin/bash -u 1000 -U fsjob && \
+    mkdir /etc/fsjob && \
+    echo "%fsjob         ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers && chown -R fsjob:fsjob /home/fsjob
+
+VOLUME [ "/etc/fsjob" ]
+
+USER fsjob
+WORKDIR /home/fsjob
+
+ENTRYPOINT ["/entrypoint.sh"]
