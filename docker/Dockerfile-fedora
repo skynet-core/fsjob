@@ -5,7 +5,7 @@ RUN dnf upgrade -y && dnf install sudo inotify-tools -y
 COPY ./entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh && \
-    adduser -d /home/fsjob -m -c "FsJob User" -s /bin/bash -u 1000 -U fsjob && \
+    adduser -d /home/fsjob -m -c "FsJob User" -s /usr/bin/bash -u 1000 -U fsjob && \
     mkdir /etc/fsjob && \
     echo "%fsjob         ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers && chown -R fsjob:fsjob /home/fsjob
 
